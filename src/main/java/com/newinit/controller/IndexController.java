@@ -2,7 +2,6 @@ package com.newinit.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import javax.activation.DataHandler;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -36,9 +35,9 @@ public class IndexController {
         props.put("mail.smtp.socketFactory.port", "25");
         //props.put("mail.smtp.socketFactory.fallback", "false");
         props.put("mail.smtp.port", 25);
-        props.put("mail.smtp.auth", "true");
-        props.setProperty("mail.user", "contacto");
-        props.setProperty("mail.password", "Abc#1234");
+        //props.put("mail.smtp.auth", "true");
+        //props.setProperty("mail.user", "contacto");
+        //props.setProperty("mail.password", "Abc#1234");
         Session mailSession = Session.getInstance(props, null);
         try {
             MimeMessage message = new MimeMessage(mailSession);
@@ -47,7 +46,8 @@ public class IndexController {
             message.setSubject(String.format("%1s %2s", firstname, subject));
             message.setText(String.format("%1s %2s", email, body));
             Transport t = mailSession.getTransport("smtp");
-            t.connect("contacto", "Abc#1234");
+            t.connect();
+            //t.connect("contacto", "Abc#1234");
             t.sendMessage(message, message.getAllRecipients());
             t.close();
         } catch (MessagingException me) {
